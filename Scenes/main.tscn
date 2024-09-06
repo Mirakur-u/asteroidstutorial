@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6e5r8vip7rsa"]
+
+[ext_resource type="PackedScene" uid="uid://bpkwmqlsryfsv" path="res://Scenes/player.tscn" id="1_7brps"]
+[ext_resource type="PackedScene" uid="uid://bvqgsd6reqspt" path="res://Scenes/asteroids_spawner.tscn" id="2_byj51"]
+
+[node name="main" type="Node"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+
+[node name="Player" parent="." instance=ExtResource("1_7brps")]
+
+[node name="AsteroidsSpawner" parent="." instance=ExtResource("2_byj51")]

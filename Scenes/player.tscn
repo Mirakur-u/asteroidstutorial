@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://bpkwmqlsryfsv"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_67kl8"]
+[ext_resource type="Texture2D" uid="uid://teovnlysqnp4" path="res://Assets/Player.png" id="1_dyusk"]
+[ext_resource type="PackedScene" uid="uid://cw68mwca2kvuf" path="res://Scenes/screen_bounds_movement.tscn" id="3_i0yrr"]
+[ext_resource type="Script" path="res://Scripts/shooting_point.gd" id="4_a5oyn"]
+[ext_resource type="PackedScene" uid="uid://biyfwx6c38yug" path="res://Scenes/bullet.tscn" id="5_i4bie"]
+
+[node name="Player" type="CharacterBody2D"]
+collision_mask = 28
+script = ExtResource("1_67kl8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 3.14159
+texture = ExtResource("1_dyusk")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
+rotation = 3.14159
+polygon = PackedVector2Array(0, -32, 32, 32, 0, 16, -32, 32)
+
+[node name="ScreenBoundsMovement" parent="." node_paths=PackedStringArray("node") instance=ExtResource("3_i0yrr")]
+node = NodePath("..")
+
+[node name="ShootingPoint" type="Node2D" parent="."]
+position = Vector2(0, 32)
+script = ExtResource("4_a5oyn")
+bullet_scene = ExtResource("5_i4bie")
