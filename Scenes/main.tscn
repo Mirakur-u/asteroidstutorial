@@ -1,9 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://b6e5r8vip7rsa"]
+[gd_scene load_steps=8 format=3 uid="uid://b6e5r8vip7rsa"]
 
 [ext_resource type="PackedScene" uid="uid://bpkwmqlsryfsv" path="res://Scenes/player.tscn" id="1_7brps"]
+[ext_resource type="PackedScene" uid="uid://dank4dd7v3xfh" path="res://Scenes/ui.tscn" id="1_asg68"]
 [ext_resource type="PackedScene" uid="uid://bvqgsd6reqspt" path="res://Scenes/asteroids_spawner.tscn" id="2_byj51"]
+[ext_resource type="PackedScene" uid="uid://xi2n2mm8aqgx" path="res://Scenes/ufo_spawner.tscn" id="3_p10nf"]
+[ext_resource type="Script" path="res://Scripts/life_manager.gd" id="4_wwacv"]
+[ext_resource type="AudioStream" uid="uid://b0eog0sxl6nyi" path="res://Assets/audio/explosion.ogg" id="5_wgos1"]
+[ext_resource type="AudioStream" uid="uid://bsytiod4cqj87" path="res://Assets/audio/ufo_hit.ogg" id="6_3bvpk"]
 
 [node name="main" type="Node"]
+
+[node name="UI" parent="." instance=ExtResource("1_asg68")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.5, 0.5)
@@ -11,3 +18,14 @@ zoom = Vector2(0.5, 0.5)
 [node name="Player" parent="." instance=ExtResource("1_7brps")]
 
 [node name="AsteroidsSpawner" parent="." instance=ExtResource("2_byj51")]
+
+[node name="UFOSpawner" parent="." instance=ExtResource("3_p10nf")]
+
+[node name="LifeManager" type="Node" parent="."]
+script = ExtResource("4_wwacv")
+
+[node name="ExplosionAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_wgos1")
+
+[node name="ufoExplosionAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_3bvpk")

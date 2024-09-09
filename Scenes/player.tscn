@@ -1,10 +1,51 @@
-[gd_scene load_steps=6 format=3 uid="uid://bpkwmqlsryfsv"]
+[gd_scene load_steps=12 format=3 uid="uid://bpkwmqlsryfsv"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_67kl8"]
 [ext_resource type="Texture2D" uid="uid://teovnlysqnp4" path="res://Assets/Player.png" id="1_dyusk"]
 [ext_resource type="PackedScene" uid="uid://cw68mwca2kvuf" path="res://Scenes/screen_bounds_movement.tscn" id="3_i0yrr"]
 [ext_resource type="Script" path="res://Scripts/shooting_point.gd" id="4_a5oyn"]
 [ext_resource type="PackedScene" uid="uid://biyfwx6c38yug" path="res://Scenes/bullet.tscn" id="5_i4bie"]
+[ext_resource type="Texture2D" uid="uid://dkysw8hkcyfeg" path="res://Assets/EngineThrottle.png" id="6_ckjt4"]
+[ext_resource type="AudioStream" uid="uid://clcyo6s4s37wl" path="res://Assets/audio/engine.ogg" id="7_y5b3q"]
+[ext_resource type="AudioStream" uid="uid://w5vqx356mm72" path="res://Assets/audio/player_shot.ogg" id="8_hbu8u"]
+
+[sub_resource type="Animation" id="Animation_ny0fd"]
+resource_name = "engine_animation"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EngineSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.233333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_rq50u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EngineSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qrk0r"]
+_data = {
+"RESET": SubResource("Animation_rq50u"),
+"engine_animation": SubResource("Animation_ny0fd")
+}
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 28
@@ -26,3 +67,27 @@ node = NodePath("..")
 position = Vector2(0, 32)
 script = ExtResource("4_a5oyn")
 bullet_scene = ExtResource("5_i4bie")
+
+[node name="BlinkingTimer" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="InvincibilityTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="EngineSprite" type="Sprite2D" parent="."]
+position = Vector2(0, -28)
+rotation = 3.14159
+texture = ExtResource("6_ckjt4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qrk0r")
+}
+
+[node name="EngineAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_y5b3q")
+parameters/looping = false
+
+[node name="ShootAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_hbu8u")

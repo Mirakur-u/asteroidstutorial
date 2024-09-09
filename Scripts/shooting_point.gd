@@ -1,9 +1,11 @@
 extends Node2D
 
 @export var bullet_scene: PackedScene
+@onready var shoot_audio: AudioStreamPlayer2D = $"../ShootAudio"
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("shoot"):
+		shoot_audio.play()
 		var bullet = bullet_scene.instantiate() as Bullet
 		get_tree().root.add_child(bullet)
 		
